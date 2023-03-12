@@ -11,6 +11,7 @@ push = require 'push'
 -- https://github.com/vrld/hump/blob/master/class.lua
 Class = require 'class'
 
+require 'Vide'               -- TODO:
 require 'Pion'               -- TODO:
 -- require 'Tour'               -- TODO:
 -- require 'Fou'                -- TODO:
@@ -24,12 +25,15 @@ require 'Joueur'             -- TODO:
 -- require 'APIStockFishChess'  -- TODO:
 
 -- size of our actual window
-WINDOW_WIDTH = 1280
+WINDOW_WIDTH = 720
 WINDOW_HEIGHT = 720
 
 -- size we're trying to emulate with push
-VIRTUAL_WIDTH = 432
-VIRTUAL_HEIGHT = 243
+VIRTUAL_WIDTH = 1000
+VIRTUAL_HEIGHT = 1000
+
+-- pour dessiner les Meeples
+SCALE_FACTOR = 100
 
 -- Load stuff at the beginning of the game
 function love.load()
@@ -48,7 +52,8 @@ function love.load()
     -- smallFont = love.graphics.newFont('font.ttf', 8)
     -- largeFont = love.graphics.newFont('font.ttf', 16)
     -- scoreFont = love.graphics.newFont('font.ttf', 32)
-    -- love.graphics.setFont(smallFont)
+    scoreFont = love.graphics.newFont(40, "mono")
+    love.graphics.setFont(scoreFont)
 
     -- initialize our virtual resolution, which will be rendered within our
     -- actual window no matter its dimensions
@@ -79,7 +84,7 @@ end
 
 -- Update the state of the game, every frame
 function love.update(delta_time)
-    plateau:update(delta_time)
+    -- plateau:update(delta_time)
     -- joueur_blanc:update(delta_time)
     -- joueur_noir:update(delta_time)
 end
