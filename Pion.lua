@@ -17,8 +17,8 @@ function Pion:mouvement_legal(new_i, new_j)
         return false -- mouvement illégal
     end
     if self.est_blanc then
-        return ((self.i == 2 and (new_i == 3 or new_i == 4)) or (new_i == self.i + 1)) and (self.j == new_j or self.j == new_j - 1 or self.j == new_j + 1)
-    else
         return ((self.i == 7 and (new_i == 6 or new_i == 5)) or (new_i == self.i - 1)) and (self.j == new_j or self.j == new_j - 1 or self.j == new_j + 1)
+    else
+        return ((self.i == 2 and (new_i == 3 or new_i == 4)) or (new_i == self.i + 1)) and (self.j == new_j or self.j == new_j - 1 or self.j == new_j + 1)
     end
 end

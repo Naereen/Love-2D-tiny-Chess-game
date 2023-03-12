@@ -8,9 +8,9 @@ function Meeple:init(i, j, est_blanc)
     self.emoji = '?'
 end
 
--- TODO: move to Plateau:draw()
+-- TODO: move to Plateau:draw() ?
 function Meeple:draw()
-    love.graphics.print(self.emoji, self.i * 10, self.j * 10, 0, 10, 10)
+    love.graphics.print(self.emoji, self.i * SCALE_FACTOR, self.j * SCALE_FACTOR, 0, SCALE_FACTOR, SCALE_FACTOR)
 end
 
 -- vérifie uniquement que l'on sort pas du plateau
@@ -20,4 +20,10 @@ function Meeple:mouvement_legal(new_i, new_j)
     else
         return true
     end
+end
+
+-- déplace le Meeple actuel à cette nouvelle case
+function Meeple:deplace(new_i, new_j)
+    self.i = new_i
+    self.j = new_j
 end
