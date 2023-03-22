@@ -35,6 +35,9 @@ VIRTUAL_HEIGHT = 1000
 -- pour dessiner les Meeples
 SCALE_FACTOR = 100
 
+mouse_i = 1
+mouse_j = 1
+
 -- Load stuff at the beginning of the game
 function love.load()
     plateau = Plateau()
@@ -49,6 +52,7 @@ function love.load()
     math.randomseed(os.time())
 
     -- initialize a text font with UTF8 emojis
+    tinyFont = love.graphics.newFont("FreeSerif.ttf", 20)
     scoreFont = love.graphics.newFont("FreeSerif.ttf", 40)
     love.graphics.setFont(scoreFont)
 
@@ -56,20 +60,10 @@ function love.load()
     -- actual window no matter its dimensions
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
-        resizable = true,
+        resizable = false,
         vsync = true,
         canvas = false
     })
-end
-
---[[
-    Called whenever we change the dimensions of our window, as by dragging
-    out its bottom corner, for example. In this case, we only need to worry
-    about calling out to `push` to handle the resizing. Takes in a `w` and
-    `h` variable representing width and height, respectively.
-]]
-function love.resize(w, h)
-    push:resize(w, h)
 end
 
 -- React to key pressed?
@@ -101,17 +95,28 @@ function love.draw()
     joueur_noir:draw()
 
     -- display FPS for debugging; simply comment out to remove
-    -- displayFPS()
+    displayFPS()
 
     -- end our drawing to push
     push:finish()
 end
 
+function love.mousemoved(x, y, dx, dy, istouch)
+    -- étape 1 : calculer coordonnées (i,j) de la case du plateau
+    -- TODO: ne pas utiliser 72 comme hard constant, mais un truc malin ?
+    mouse_i = math.floor(x / 72)
+    mouse_j = math.floor(y / 72)
+    -- étape 2 : colorier cette case, à faire dans plateau:draw()
+    -- étape 3 : machine à état, autoriser le déplacement potentiel de la pièce sélectionnée
+end
+
 -- Renders the current FPS.
 function displayFPS()
     -- simple FPS display across all states
-    -- love.graphics.setFont(smallFont)
+    love.graphics.setFont(tinyFont)
     love.graphics.setColor(0, 255/255, 0, 255/255)
-    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 10, 10)
+    love.graphics.print('FPS: ' .. love.timer.getFPS(), 10, 10)
+    -- love.graphics.print('FPS: ' .. love.timer.getFPS() .. ' mouse_i = ' .. mouse_i .. ' mouse_j = ' .. mouse_j, 10, 10)
     love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setFont(scoreFont)
 end

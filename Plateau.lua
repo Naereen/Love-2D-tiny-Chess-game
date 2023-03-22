@@ -61,4 +61,11 @@ function Plateau:draw()
     end
     love.graphics.line(SCALE_FACTOR*9, SCALE_FACTOR, SCALE_FACTOR*9, SCALE_FACTOR*9)
     love.graphics.line(SCALE_FACTOR, SCALE_FACTOR*9, SCALE_FACTOR*9, SCALE_FACTOR*9)
+
+    -- on surligne de jaune la case actuellement sélectionnée par la souris ?
+    if mouse_i >= 1 and mouse_i <= 8 and mouse_j >= 1 and mouse_j <= 8 then
+        love.graphics.setColor(255/255, 239/255, 0.0, 0.5)
+        love.graphics.rectangle('fill', mouse_i*SCALE_FACTOR, mouse_j*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR)
+        love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+    end
 end
