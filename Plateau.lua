@@ -24,7 +24,8 @@ function Plateau:init()
     self.matrix[8][1] = Tour(8, 1, false)
 
     -- une pièce au centre pour débogguer
-    self.matrix[4][4] = Tour(4, 4, true)
+    self.matrix[4][4] = Pion(4, 4, false)
+    self.matrix[5][5] = Pion(5, 5, true)
 
     -- les pièces blanches
     self.matrix[1][8] = Tour(1, 8, true)

@@ -30,7 +30,7 @@ function Tour:mouvement_legal(new_i, new_j, case_arrivee, plateau)
     if (new_i == self.i and new_j ~= self.j) then
         -- mouvement purement vertical
         for inter_j = min(new_j, self.j) + 1, max(new_j, self.j) - 1 do
-            -- si on tombe sur une case occupée, c'est fichue
+            -- si on tombe sur une case occupée, c'est fichu
             if plateau.matrix[self.i][inter_j].est_vide == false then
                 return false
             end
@@ -40,7 +40,7 @@ function Tour:mouvement_legal(new_i, new_j, case_arrivee, plateau)
     if (new_i ~= self.i and new_j == self.j) then
         -- mouvement purement horizontal
         for inter_i = min(new_i, self.i) + 1, max(new_i, self.i) - 1 do
-            -- si on tombe sur une case occupée, c'est fichue
+            -- si on tombe sur une case occupée, c'est fichu
             if plateau.matrix[inter_i][self.j].est_vide == false then
                 return false
             end

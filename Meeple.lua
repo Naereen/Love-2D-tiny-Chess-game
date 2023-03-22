@@ -25,7 +25,7 @@ function Meeple:mouvement_legal(new_i, new_j, case_arrivee, plateau)
         return false
     end
     -- si on arrive sur un Meeple de notre couleur, on peut pas s'y déplacer
-    if case_arrivee.est_blanc == Meeple.est_blanc then
+    if case_arrivee.est_blanc == self.est_blanc then
         return false
     end
     -- si on arrive sur un Meeple adverse, ou un vide, c'est bon on peut s'y déplacer
@@ -34,6 +34,8 @@ end
 
 -- déplace le Meeple actuel à cette nouvelle case
 function Meeple:deplace(new_i, new_j)
+    -- TODO: il faut s'assurer de créer un Vide(i, j) dans le plateau
+    -- TODO: et de déplacer le Meeple dans le plateau
     self.i = new_i
     self.j = new_j
 end
