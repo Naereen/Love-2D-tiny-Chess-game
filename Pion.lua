@@ -9,7 +9,7 @@ function Pion:init(i, j, est_blanc)
     if est_blanc then
         self.emoji = '♙'
     else
-        self.emoji = '♟︎'
+        self.emoji = '♟'
     end
 end
 

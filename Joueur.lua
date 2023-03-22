@@ -16,7 +16,7 @@ end
 
 function Joueur:draw()
     if self.est_blanc then
-        love.graphics.printf("Blanc : " .. tostring(self.score) .. " pièces ♟︎ mangées ", self.X, self.Y, 750, 'left')
+        love.graphics.printf("Blanc : " .. tostring(self.score) .. " pièces ♟ mangées ", self.X, self.Y, 750, 'left')
     else
         love.graphics.printf(" Noir : " .. tostring(self.score) .. " pièces ♙ mangées", self.X, self.Y, 750, 'left')
     end

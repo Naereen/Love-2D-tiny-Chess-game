@@ -14,13 +14,13 @@ function Plateau:init()
     end
     -- les pièces noires
     self.matrix[1][1] = Tour(1, 1, false)
-    self.matrix[2][1] = Cavalier(1, 2, false)
-    self.matrix[3][1] = Fou(1, 3, false)
-    self.matrix[4][1] = Reine(1, 4, false)
-    self.matrix[5][1] = Roi(1, 5, false)
-    self.matrix[6][1] = Fou(1, 6, false)
-    self.matrix[7][1] = Cavalier(1, 7, false)
-    self.matrix[8][1] = Tour(1, 8, false)
+    self.matrix[2][1] = Cavalier(2, 1, false)
+    self.matrix[3][1] = Fou(3, 1, false)
+    self.matrix[4][1] = Reine(4, 1, false)
+    self.matrix[5][1] = Roi(5, 1, false)
+    self.matrix[6][1] = Fou(6, 1, false)
+    self.matrix[7][1] = Cavalier(7, 1, false)
+    self.matrix[8][1] = Tour(8, 1, false)
 
     -- les pièces blanches
     self.matrix[1][8] = Tour(1, 8, true)
@@ -34,11 +34,19 @@ function Plateau:init()
 end
 
 function Plateau:draw()
+    parite = 0
     for i = 1,8 do
         for j = 1,8 do
             love.graphics.line(i*SCALE_FACTOR, j*SCALE_FACTOR, (i+1)*SCALE_FACTOR, j*SCALE_FACTOR)
             love.graphics.line(i*SCALE_FACTOR, j*SCALE_FACTOR, i*SCALE_FACTOR, (j+1)*SCALE_FACTOR)
-            -- TODO: dessiner des lignes sur les cases noires
+            
+            -- TODO: dessiner des carrés colorés de temps en temps (un sur deux)
+            parite = (parite + 1) % 2
+            if parite == 0 then
+                love.graphics.setColor(0.6, 0.6, 0.6, 1.0)
+                love.graphics.rectangle('fill', i*SCALE_FACTOR, j*SCALE_FACTOR, (i+1)*SCALE_FACTOR, (j+1)*SCALE_FACTOR)
+                love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+            end
 
             meeple = self.matrix[i][j]
             -- self.matrix[i][j]:draw()

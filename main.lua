@@ -49,12 +49,7 @@ function love.load()
     math.randomseed(os.time())
 
     -- initialize a text font with UTF8 emojis
-    -- smallFont = love.graphics.newFont('font.ttf', 8)
-    -- largeFont = love.graphics.newFont('font.ttf', 16)
-    -- scoreFont = love.graphics.newFont('font.ttf', 32)
-    -- scoreFont = love.graphics.newFont(40, "mono")
-    scoreFont = love.graphics.newFont(40, "normal")
-    scoreFont = love.graphics.newFont("/usr/share/fonts/truetype/freefont/FreeSans.ttf", 40)
+    scoreFont = love.graphics.newFont("FreeSerif.ttf", 40)
     love.graphics.setFont(scoreFont)
 
     -- initialize our virtual resolution, which will be rendered within our
