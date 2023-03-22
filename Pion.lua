@@ -1,3 +1,4 @@
+require 'Meeple'
 Pion = Class{__includes = Meeple}
 
 function Pion:init(i, j, est_blanc)
@@ -18,8 +19,8 @@ function Pion:mouvement_legal(new_i, new_j, case_arrivee, plateau)
         return false -- mouvement illégal
     end
     if self.est_blanc then
-        return ((self.i == 7 and (new_i == 6 or new_i == 5)) or (new_i == self.i - 1)) and (self.j == new_j or self.j == new_j - 1 or self.j == new_j + 1)
+        return ((self.j == 7 and (new_j == 6 or new_j == 5)) or (new_j == self.j - 1)) and (self.i == new_i or self.i == new_i - 1 or self.i == new_i + 1)
     else
-        return ((self.i == 2 and (new_i == 3 or new_i == 4)) or (new_i == self.i + 1)) and (self.j == new_j or self.j == new_j - 1 or self.j == new_j + 1)
+        return ((self.j == 2 and (new_j == 3 or new_j == 4)) or (new_j == self.j + 1)) and (self.i == new_i or self.i == new_i - 1 or self.i == new_i + 1)
     end
 end

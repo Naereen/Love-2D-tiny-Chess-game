@@ -14,10 +14,10 @@ Class = require 'class'
 require 'Vide'
 require 'Pion'
 require 'Tour'
-require 'Fou'                -- TODO:
-require 'Cavalier'           -- TODO:
-require 'Roi'                -- TODO:
-require 'Reine'              -- TODO:
+require 'Fou'
+require 'Cavalier'
+require 'Roi'
+require 'Reine'
 require 'Plateau'            -- TODO:
 
 require 'Joueur'             -- TODO:
@@ -35,8 +35,13 @@ VIRTUAL_HEIGHT = 1000
 -- pour dessiner les Meeples
 SCALE_FACTOR = 100
 
+-- pour savoir où est la souris actuellement
 mouse_i = 1
 mouse_j = 1
+
+-- quelle pièce est sélectionnée
+piece_selectionnee = nil
+
 
 -- Load stuff at the beginning of the game
 function love.load()
@@ -78,6 +83,16 @@ function love.update(delta_time)
     -- plateau:update(delta_time)
     -- joueur_blanc:update(delta_time)
     -- joueur_noir:update(delta_time)
+    if love.mouse.isDown(1) then
+        piece_selectionnee = plateau.matrix[mouse_i][mouse_j]
+        if piece_selectionnee.est_vide then
+            piece_selectionnee = nil
+        end
+        -- TODO: colorier en rouge clair cette case de départ de déplacement
+    elseif love.mouse.isDown(2) then
+        -- un clic droit n'importe où annule la sélection
+        piece_selectionnee = nil
+    end
 end
 
 -- Draw the frame

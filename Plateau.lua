@@ -1,5 +1,6 @@
 Plateau = Class{}
 
+-- Création du plateau initial
 function Plateau:init()
     self.matrix = {}
     for i = 1,8 do
@@ -22,6 +23,9 @@ function Plateau:init()
     self.matrix[7][1] = Cavalier(7, 1, false)
     self.matrix[8][1] = Tour(8, 1, false)
 
+    -- une pièce au centre pour débogguer
+    self.matrix[4][4] = Tour(4, 4, true)
+
     -- les pièces blanches
     self.matrix[1][8] = Tour(1, 8, true)
     self.matrix[2][8] = Cavalier(2, 8, true)
@@ -33,6 +37,7 @@ function Plateau:init()
     self.matrix[8][8] = Tour(8, 8, true)
 end
 
+-- pour dessiner le Plateau
 function Plateau:draw()
     parite = 0
     for i = 1,8 do
@@ -41,7 +46,7 @@ function Plateau:draw()
             love.graphics.line(i*SCALE_FACTOR, j*SCALE_FACTOR, (i+1)*SCALE_FACTOR, j*SCALE_FACTOR)
             love.graphics.line(i*SCALE_FACTOR, j*SCALE_FACTOR, i*SCALE_FACTOR, (j+1)*SCALE_FACTOR)
 
-            -- TODO: dessiner des carrés colorés de temps en temps (un sur deux)
+            -- dessiner des carrés noir/blanc en alternance un sur deux
             parite = (parite + 1) % 2
             if i <= 8 and j <= 8 then
                 if parite == 0 then
@@ -64,8 +69,30 @@ function Plateau:draw()
 
     -- on surligne de jaune la case actuellement sélectionnée par la souris ?
     if mouse_i >= 1 and mouse_i <= 8 and mouse_j >= 1 and mouse_j <= 8 then
-        love.graphics.setColor(255/255, 239/255, 0.0, 0.5)
+        love.graphics.setColor(1, 1, 0.0, 0.5)
         love.graphics.rectangle('fill', mouse_i*SCALE_FACTOR, mouse_j*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR)
         love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+    end
+
+    -- on surligne de vert la pièce actuellement sélectionnée à la souris ?
+    if piece_selectionnee ~= nil then
+        local p_i = piece_selectionnee.i
+        local p_j = piece_selectionnee.j
+        love.graphics.setColor(0, 1, 0.0, 0.5)
+        love.graphics.rectangle('fill', p_i*SCALE_FACTOR, p_j*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR)
+        love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+    end
+
+    -- maintenant, si la pièce sélectionnée est surlignée en vert, pour chaque case sur laquelle elle peut aller, on la surligne en bleu clair
+    if piece_selectionnee ~= nil then
+        for i = 1,8 do
+            for j = 1,8 do
+                if piece_selectionnee:mouvement_legal(i, j, plateau.matrix[i][j], plateau) then
+                    love.graphics.setColor(0, 0, 1, 0.5)
+                    love.graphics.rectangle('fill', i*SCALE_FACTOR, j*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR)
+                    love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+                end
+            end
+        end
     end
 end
