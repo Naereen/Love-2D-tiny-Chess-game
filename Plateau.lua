@@ -36,15 +36,20 @@ end
 function Plateau:draw()
     parite = 0
     for i = 1,8 do
+        parite = (parite + 1) % 2
         for j = 1,8 do
             love.graphics.line(i*SCALE_FACTOR, j*SCALE_FACTOR, (i+1)*SCALE_FACTOR, j*SCALE_FACTOR)
             love.graphics.line(i*SCALE_FACTOR, j*SCALE_FACTOR, i*SCALE_FACTOR, (j+1)*SCALE_FACTOR)
-            
+
             -- TODO: dessiner des carrés colorés de temps en temps (un sur deux)
             parite = (parite + 1) % 2
-            if parite == 0 then
-                love.graphics.setColor(0.6, 0.6, 0.6, 1.0)
-                love.graphics.rectangle('fill', i*SCALE_FACTOR, j*SCALE_FACTOR, (i+1)*SCALE_FACTOR, (j+1)*SCALE_FACTOR)
+            if i <= 8 and j <= 8 then
+                if parite == 0 then
+                    love.graphics.setColor(0.6, 0.6, 0.6, 1.0)
+                else
+                    love.graphics.setColor(0.0, 0.0, 0.0, 1.0)
+                end
+                love.graphics.rectangle('fill', i*SCALE_FACTOR, j*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR)
                 love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
             end
 
