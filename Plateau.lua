@@ -12,6 +12,25 @@ function Plateau:init()
         self.matrix[i][2] = Pion(i, 2, false)
         self.matrix[i][7] = Pion(i, 7, true)
     end
+    -- les pièces noires
+    self.matrix[1][1] = Tour(1, 1, false)
+    self.matrix[2][1] = Cavalier(1, 2, false)
+    self.matrix[3][1] = Fou(1, 3, false)
+    self.matrix[4][1] = Reine(1, 4, false)
+    self.matrix[5][1] = Roi(1, 5, false)
+    self.matrix[6][1] = Fou(1, 6, false)
+    self.matrix[7][1] = Cavalier(1, 7, false)
+    self.matrix[8][1] = Tour(1, 8, false)
+
+    -- les pièces blanches
+    self.matrix[1][8] = Tour(1, 8, true)
+    self.matrix[2][8] = Cavalier(2, 8, true)
+    self.matrix[3][8] = Fou(3, 8, true)
+    self.matrix[4][8] = Reine(4, 8, true)
+    self.matrix[5][8] = Roi(5, 8, true)
+    self.matrix[6][8] = Fou(6, 8, true)
+    self.matrix[7][8] = Cavalier(7, 8, true)
+    self.matrix[8][8] = Tour(8, 8, true)
 end
 
 function Plateau:draw()
@@ -23,7 +42,7 @@ function Plateau:draw()
 
             meeple = self.matrix[i][j]
             -- self.matrix[i][j]:draw()
-            love.graphics.print(meeple.emoji, meeple.i * SCALE_FACTOR, meeple.j * SCALE_FACTOR, 0, SCALE_FACTOR, SCALE_FACTOR)
+            love.graphics.print(meeple.emoji, meeple.i * SCALE_FACTOR, meeple.j * SCALE_FACTOR, 0, 2, 2)
 
         end
     end

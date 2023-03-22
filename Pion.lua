@@ -1,6 +1,7 @@
 Pion = Class{__includes = Meeple}
 
 function Pion:init(i, j, est_blanc)
+    self.est_vide = false
     self.i = i
     self.j = j
     -- https://en.wikipedia.org/wiki/Chess_symbols_in_Unicode
@@ -12,8 +13,8 @@ function Pion:init(i, j, est_blanc)
     end
 end
 
-function Pion:mouvement_legal(new_i, new_j)
-    if Meeple:mouvement_legal(new_i, new_j) == false then -- si on sort du plateau
+function Pion:mouvement_legal(new_i, new_j, case_arrivee, plateau)
+    if Meeple:mouvement_legal(new_i, new_j, case_arrivee) == false then -- si on sort du plateau
         return false -- mouvement illégal
     end
     if self.est_blanc then
