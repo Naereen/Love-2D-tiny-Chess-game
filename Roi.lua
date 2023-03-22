@@ -13,9 +13,18 @@ function Roi:init(i, j, est_blanc)
     end
 end
 
-function Roi:mouvement_legal(new_i, new_j, case_arrivee)
-    if Meeple:mouvement_legal(new_i, new_j, case_arrivee) == false then -- si on sort du plateau
+function abs(x)
+    if x < 0 then return (-1 * x) else return x end
+end
+
+function Roi:mouvement_legal(new_i, new_j, case_arrivee, plateau)
+    if Meeple:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
-    return true -- TODO:
+    -- mouvement légal si on a un déplacement que de 0/+-1 ou +-1/0 ou +-1/+-1
+    if (new_i == self.i and abs(new_j - self.j) == 1) or (new_j == self.j and abs(new_i - self.i) == 1) or (abs(new_j - self.j) == 1 and abs(new_i - self.i) == 1) then
+        return true
+    else
+        return false
+    end
 end

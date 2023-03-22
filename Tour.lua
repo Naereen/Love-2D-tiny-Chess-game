@@ -13,8 +13,18 @@ function Tour:init(i, j, est_blanc)
     end
 end
 
+-- Minimum de deux valeurs
+function min(a, b)
+    if a < b then return a else return b end
+end
+
+-- Maximum de deux valeurs
+function max(a, b)
+    if a < b then return b else return a end
+end
+
 function Tour:mouvement_legal(new_i, new_j, case_arrivee, plateau)
-    if Meeple:mouvement_legal(new_i, new_j, case_arrivee) == false then -- si on sort du plateau
+    if Meeple:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
     if (new_i == self.i and new_j ~= self.j) then
@@ -25,6 +35,7 @@ function Tour:mouvement_legal(new_i, new_j, case_arrivee, plateau)
                 return false
             end
         end
+        return true
     end
     if (new_i ~= self.i and new_j == self.j) then
         -- mouvement purement horizontal
@@ -34,6 +45,7 @@ function Tour:mouvement_legal(new_i, new_j, case_arrivee, plateau)
                 return false
             end
         end
+        return true
     end
     return false
 end

@@ -14,8 +14,21 @@ function Cavalier:init(i, j, est_blanc)
 end
 
 function Cavalier:mouvement_legal(new_i, new_j, case_arrivee)
-    if Meeple:mouvement_legal(new_i, new_j, case_arrivee) == false then -- si on sort du plateau
+    if Meeple:mouvement_legal(new_i, new_j, case_arrivee) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
-    return true -- TODO:
+    local delta_i = new_i - self.i
+    local delta_j = new_j - self.j
+    if     (delta_i == -1 and delta_j == -2)
+        or (delta_i == 1 and delta_j == -2)
+        or (delta_i == -1 and delta_j == 2)
+        or (delta_i == 1 and delta_j == 2)
+        or (delta_i == -2 and delta_j == -1)
+        or (delta_i == 2 and delta_j == -1)
+        or (delta_i == -2 and delta_j == 1)
+        or (delta_i == 2 and delta_j == 1)
+    then
+        return true
+    end
+    return false
 end

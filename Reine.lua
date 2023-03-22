@@ -13,9 +13,9 @@ function Reine:init(i, j, est_blanc)
     end
 end
 
-function Reine:mouvement_legal(new_i, new_j, case_arrivee)
-    if Meeple:mouvement_legal(new_i, new_j, case_arrivee) == false then -- si on sort du plateau
+function Reine:mouvement_legal(new_i, new_j, case_arrivee, plateau)
+    if Meeple:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
-    return true -- TODO:
+    return Tour:mouvement_legal(new_i, new_j, case_arrivee, plateau) or Fou:mouvement_legal(new_i, new_j, case_arrivee, plateau)
 end

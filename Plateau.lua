@@ -55,7 +55,7 @@ function Plateau:draw()
 
             meeple = self.matrix[i][j]
             -- self.matrix[i][j]:draw()
-            love.graphics.print(meeple.emoji, meeple.i * SCALE_FACTOR, meeple.j * SCALE_FACTOR, 0, 2, 2)
+            love.graphics.print(meeple.emoji, (meeple.i + 0.125) * SCALE_FACTOR, (meeple.j + 0.125) * SCALE_FACTOR, 0, 2, 2)
 
         end
     end

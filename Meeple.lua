@@ -16,6 +16,11 @@ end
 
 -- vérifie uniquement que l'on sort pas du plateau, et que l'on arrive pas sur une case ayant un Meeple de la même couleur
 function Meeple:mouvement_legal(new_i, new_j, case_arrivee, plateau)
+    -- si on ne se déplace pas, mouvement illégal
+    if new_i == self.i and new_j == self.j then
+        return false
+    end
+    -- si on sort du plateau, mouvement illégal
     if new_i < 1 or new_i > 8 or new_j < 1 or new_j > 8 then
         return false
     end
