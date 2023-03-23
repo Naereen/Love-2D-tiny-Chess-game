@@ -7,7 +7,7 @@ Un petit jeu d'échec écrit en Lua avec le framework Löve2D (https://love2d.or
 - [x] Première architecture avec des classes pour les pièces ;
 - [x] Affichage du plateau ;
 
-![](demo_plateau_initial.png)
+![Démonstration du plateau au début du jeu](demo_plateau_initial.png)
 
 - [x] Calcul des coups possibles pour chaque type de pièces ;
 - [x] Sélection de la pièce à jouer, et de la case de destination ;
@@ -16,6 +16,8 @@ Un petit jeu d'échec écrit en Lua avec le framework Löve2D (https://love2d.or
 - [x] Jeu infini, jusqu'à ce qu'un Roi ait été pris ;
 - [x] l'interface graphique montre de façon très basique l'alternance des joueurs ;
 - [ ] TODO: faire en sorte que le joueur actif ne puisse bouger que ses pièces ;
+
+![Démonstration du plateau en cours de jeu](demo_plateau_en_cours.png)
 
 Et après, je veux essayer ça :
 
