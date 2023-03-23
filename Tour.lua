@@ -1,4 +1,4 @@
-Tour = Class{__includes = Meeple}
+Tour = Class{__includes = Piece}
 
 function Tour:init(i, j, est_blanc)
     self.est_vide = false
@@ -24,7 +24,7 @@ function max(a, b)
 end
 
 function Tour:mouvement_legal(new_i, new_j, case_arrivee, plateau)
-    if Meeple:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
+    if Piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
     if (new_i == self.i and new_j ~= self.j) then

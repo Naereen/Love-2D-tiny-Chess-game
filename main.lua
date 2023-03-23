@@ -11,7 +11,7 @@ push = require 'push'
 -- https://github.com/vrld/hump/blob/master/class.lua
 Class = require 'class'
 
-require 'Meeple'
+require 'Piece'
 require 'Vide'
 require 'Pion'
 require 'Tour'
@@ -33,7 +33,7 @@ WINDOW_HEIGHT = 720
 VIRTUAL_WIDTH = 1000
 VIRTUAL_HEIGHT = 1000
 
--- pour dessiner les Meeples
+-- pour dessiner les Pieces
 SCALE_FACTOR = 100
 
 -- pour savoir où est la souris actuellement

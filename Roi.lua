@@ -1,4 +1,4 @@
-Roi = Class{__includes = Meeple}
+Roi = Class{__includes = Piece}
 
 function Roi:init(i, j, est_blanc)
     self.est_vide = false
@@ -18,7 +18,7 @@ function abs(x)
 end
 
 function Roi:mouvement_legal(new_i, new_j, case_arrivee, plateau)
-    if Meeple:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
+    if Piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
     -- mouvement légal si on a un déplacement que de 0/+-1 ou +-1/0 ou +-1/+-1

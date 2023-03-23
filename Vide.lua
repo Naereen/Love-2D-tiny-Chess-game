@@ -1,4 +1,4 @@
-Vide = Class{__includes = Meeple}
+Vide = Class{__includes = Piece}
 
 function Vide:init(i, j)
     self.i = i

@@ -1,4 +1,4 @@
-Fou = Class{__includes = Meeple}
+Fou = Class{__includes = Piece}
 
 function Fou:init(i, j, est_blanc)
     self.est_vide = false
@@ -33,7 +33,7 @@ function signe(x)
 end
 
 function Fou:mouvement_legal(new_i, new_j, case_arrivee, plateau)
-    if Meeple:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
+    if Piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
     -- pour la tour : marche si delta_x == 0 et delta_y != 0 et Vide sur la verticale, ou l'inverse avec l'horizontale

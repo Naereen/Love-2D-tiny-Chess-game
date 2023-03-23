@@ -1,4 +1,4 @@
-Reine = Class{__includes = Meeple}
+Reine = Class{__includes = Piece}
 
 function Reine:init(i, j, est_blanc)
     self.est_vide = false
@@ -14,7 +14,7 @@ function Reine:init(i, j, est_blanc)
 end
 
 function Reine:mouvement_legal(new_i, new_j, case_arrivee, plateau)
-    if Meeple:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
+    if Piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
     une_tour = Tour(self.i, self.j, self.est_blanc)

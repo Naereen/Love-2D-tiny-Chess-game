@@ -59,9 +59,9 @@ function Plateau:draw()
                 love.graphics.setColor(1.0, 1.0, 1.0, 1.0)  -- blanc pour les lignes
             end
 
-            local meeple = self.matrix[i][j]
-            meeple:draw()
-            -- love.graphics.print(meeple.emoji, (meeple.i + 0.125) * SCALE_FACTOR, (meeple.j + 0.125) * SCALE_FACTOR, 0, 2, 2)
+            local Piece = self.matrix[i][j]
+            Piece:draw()
+            -- love.graphics.print(Piece.emoji, (Piece.i + 0.125) * SCALE_FACTOR, (Piece.j + 0.125) * SCALE_FACTOR, 0, 2, 2)
 
         end
     end

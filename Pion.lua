@@ -1,4 +1,4 @@
-Pion = Class{__includes = Meeple}
+Pion = Class{__includes = Piece}
 
 function Pion:init(i, j, est_blanc)
     self.est_vide = false
@@ -14,7 +14,7 @@ function Pion:init(i, j, est_blanc)
 end
 
 function Pion:mouvement_legal(new_i, new_j, case_arrivee, plateau)
-    if Meeple:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
+    if Piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
     if self.est_blanc then
