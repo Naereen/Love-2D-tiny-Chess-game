@@ -96,8 +96,9 @@ function Plateau:draw()
     end
 end
 
--- pour déplacer une pièce
+-- pour déplacer une pièce, et implémenter la logique d'alternance joueur blanc, joueur noir, et la fin de jeu en cas de prise d'un Roi
 function Plateau:deplace(i, j, new_i, new_j)
+
     local piece_arrivee = plateau.matrix[new_i][new_j]
     -- si piece_arrivee n'est pas vide, on peut faire 1) assert couleur différente 2) marquer un point au joueur actuel
     local couleur_piece_arrivee = piece_arrivee.est_blanc
@@ -106,6 +107,7 @@ function Plateau:deplace(i, j, new_i, new_j)
         print("Mouvement classique,  vers une case vide, rien de spécial à faire")
     else
         local couleur_piece_depart = plateau.matrix[i][j].est_blanc
+        -- n'arrive jamais, on a bien vérifié ça avant
         assert(couleur_piece_arrivee ~= couleur_piece_depart, "Erreur : pièce de départ en " .. i .. "," .. j .. "doit avoir une couleur différente de la case d'arrivée en " .. new_i .. "," .. new_j)
     end
     -- si la case d'arrivée n'est pas vide, on doit marquer un point au joueur actuel
@@ -117,5 +119,14 @@ function Plateau:deplace(i, j, new_i, new_j)
     -- on a vidé la case (i,j) c'est bon
     plateau.matrix[new_i][new_j] = plateau.matrix[i][j]
     plateau.matrix[i][j] = Vide(i, j)
-    return true
+
+    -- réinitialise la pièce sélectionnée
+    piece_selectionnee = nil
+
+    -- alternance joueur blanc, joueur noir, à l'infini
+    if joueur_actif == joueur_blanc then
+        joueur_actif = joueur_noir
+    else
+        joueur_actif = joueur_blanc
+    end
 end

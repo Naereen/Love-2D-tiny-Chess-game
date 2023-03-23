@@ -91,6 +91,9 @@ function love.update(delta_time)
         end
         -- DONE colorier en vert clair cette case de départ de déplacement
     elseif love.mouse.isDown(2) then
+        if piece_selectionnee == nil then
+            return
+        end
         -- un clic droit sur une pièce d'arrivée fait le mouvement
         local piece_arrivee = plateau.matrix[mouse_i][mouse_j]
         local i, j = piece_selectionnee.i, piece_selectionnee.j

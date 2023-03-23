@@ -11,9 +11,10 @@ Un petit jeu d'échec écrit en Lua avec le framework Löve2D (https://love2d.or
 
 - [x] Calcul des coups possibles pour chaque type de pièces ;
 - [x] Sélection de la pièce à jouer, et de la case de destination ;
-- [ ] Pouvoir manger une pièce adverse, compter +1 au score, et passer au joueur adverse ;
-- [ ] Alternance joueur blanc, joueur noir, etc. (machine à état basique) ;
+- [x] Pouvoir manger une pièce adverse, compter +1 au score, et passer au joueur adverse ;
+- [x] Alternance joueur blanc, joueur noir, etc. (machine à état basique) ;
 - [ ] Jeu infini, jusqu'à ce qu'un Roi ait été pris ;
+- [ ] TODO: améliorer l'interface graphique pour mieux montrer l'alternance des joueurs
 - [ ] Connecter le joueur noir à une API en ligne de commande d'un bon solveur d'échec (par exemple [stockfish](https://stockfishchess.org/) ?).
 
 ## Ce que je ne ferai pas (pas envie)
