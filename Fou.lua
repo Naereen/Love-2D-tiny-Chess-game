@@ -33,7 +33,8 @@ function signe(x)
 end
 
 function Fou:mouvement_legal(new_i, new_j, case_arrivee, plateau)
-    if Piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
+    local piece = Piece(self.i, self.j, self.est_blanc)
+    if piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
     -- pour la tour : marche si delta_x == 0 et delta_y != 0 et Vide sur la verticale, ou l'inverse avec l'horizontale
@@ -43,7 +44,7 @@ function Fou:mouvement_legal(new_i, new_j, case_arrivee, plateau)
         -- TODO: mieux calculer les indices, et directions de la diagonale ?
         local direction_i = signe(new_i - self.i)
         local direction_j = signe(new_j - self.j)
-        for delta = min(min(new_i, self.i), min(new_j, self.j)) + 1, min(max(new_i, self.i), max(new_j, self.j)) - 1 do
+        for delta = 1, abs(new_i - self.i) - 1 do
             -- si on tombe sur une case occupée, c'est fichue
             if self.i + direction_i * delta >= 1 and self.i + direction_i * delta <= 8 and self.j + direction_j * delta >= 1 and self.j + direction_j * delta <= 8 and plateau.matrix[self.i + direction_i * delta][self.j + direction_j * delta].est_vide == false then
                 return false

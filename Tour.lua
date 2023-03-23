@@ -24,7 +24,8 @@ function max(a, b)
 end
 
 function Tour:mouvement_legal(new_i, new_j, case_arrivee, plateau)
-    if Piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
+    local piece = Piece(self.i, self.j, self.est_blanc)
+    if piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
     if (new_i == self.i and new_j ~= self.j) then

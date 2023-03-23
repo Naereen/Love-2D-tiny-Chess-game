@@ -14,7 +14,8 @@ function Reine:init(i, j, est_blanc)
 end
 
 function Reine:mouvement_legal(new_i, new_j, case_arrivee, plateau)
-    if Piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
+    local piece = Piece(self.i, self.j, self.est_blanc)
+    if piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
     une_tour = Tour(self.i, self.j, self.est_blanc)

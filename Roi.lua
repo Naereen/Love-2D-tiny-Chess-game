@@ -18,7 +18,8 @@ function abs(x)
 end
 
 function Roi:mouvement_legal(new_i, new_j, case_arrivee, plateau)
-    if Piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
+    local piece = Piece(self.i, self.j, self.est_blanc)
+    if piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
     -- mouvement légal si on a un déplacement que de 0/+-1 ou +-1/0 ou +-1/+-1

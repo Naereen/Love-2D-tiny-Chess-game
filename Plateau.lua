@@ -24,8 +24,8 @@ function Plateau:init()
     self.matrix[8][1] = Tour(8, 1, false)
 
     -- TODO: enlever ces pièces au centre, mise là pour débogguer
-    self.matrix[4][4] = Reine(4, 4, false)
-    self.matrix[5][5] = Reine(5, 5, true)
+    -- self.matrix[4][4] = Tour(4, 4, false)
+    -- self.matrix[5][5] = Tour(5, 5, true)
 
     -- les pièces blanches
     self.matrix[1][8] = Tour(1, 8, true)
@@ -53,16 +53,14 @@ function Plateau:draw()
                 if parite == 0 then
                     love.graphics.setColor(0.6, 0.6, 0.6, 1.0)  -- gris foncé
                 else
-                    love.graphics.setColor(0.0, 0.0, 0.0, 1.0)  -- noir
+                    love.graphics.setColor(0, 0, 0, 1.0)  -- noir
                 end
                 love.graphics.rectangle('fill', i*SCALE_FACTOR, j*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR)
-                love.graphics.setColor(1.0, 1.0, 1.0, 1.0)  -- blanc pour les lignes
+                love.graphics.setColor(1, 1, 1, 1)  -- blanc pour les lignes
             end
 
-            local Piece = self.matrix[i][j]
-            Piece:draw()
-            -- love.graphics.print(Piece.emoji, (Piece.i + 0.125) * SCALE_FACTOR, (Piece.j + 0.125) * SCALE_FACTOR, 0, 2, 2)
-
+            local piece = self.matrix[i][j]
+            piece:draw()
         end
     end
     love.graphics.line(SCALE_FACTOR*9, SCALE_FACTOR, SCALE_FACTOR*9, SCALE_FACTOR*9)
@@ -70,18 +68,18 @@ function Plateau:draw()
 
     -- on surligne de jaune la case actuellement sélectionnée par la souris ?
     if mouse_i >= 1 and mouse_i <= 8 and mouse_j >= 1 and mouse_j <= 8 then
-        love.graphics.setColor(1, 1, 0.0, 0.5)
+        love.graphics.setColor(1, 1, 0, 0.5)
         love.graphics.rectangle('fill', mouse_i*SCALE_FACTOR, mouse_j*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR)
-        love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+        love.graphics.setColor(1, 1, 1, 1)
     end
 
     -- on surligne de vert la pièce actuellement sélectionnée à la souris ?
     if piece_selectionnee ~= nil then
         local p_i = piece_selectionnee.i
         local p_j = piece_selectionnee.j
-        love.graphics.setColor(0, 1, 0.0, 0.5)
+        love.graphics.setColor(0, 1, 0, 0.5)
         love.graphics.rectangle('fill', p_i*SCALE_FACTOR, p_j*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR)
-        love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+        love.graphics.setColor(1, 1, 1, 1)
     end
 
     -- maintenant, si la pièce sélectionnée est surlignée en vert, pour chaque case sur laquelle elle peut aller, on la surligne en bleu clair
@@ -91,7 +89,7 @@ function Plateau:draw()
                 if piece_selectionnee:mouvement_legal(i, j, plateau.matrix[i][j], plateau) then
                     love.graphics.setColor(0, 0, 1, 0.5)
                     love.graphics.rectangle('fill', i*SCALE_FACTOR, j*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR)
-                    love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+                    love.graphics.setColor(1, 1, 1, 1)
                 end
             end
         end

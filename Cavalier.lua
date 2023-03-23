@@ -14,7 +14,8 @@ function Cavalier:init(i, j, est_blanc)
 end
 
 function Cavalier:mouvement_legal(new_i, new_j, case_arrivee)
-    if Piece:mouvement_legal(new_i, new_j, case_arrivee) == false then -- si trivialement illégal
+    local piece = Piece(self.i, self.j, self.est_blanc)
+    if piece:mouvement_legal(new_i, new_j, case_arrivee) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
     local delta_i = new_i - self.i
