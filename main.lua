@@ -43,6 +43,9 @@ mouse_j = 1
 -- quelle pièce est sélectionnée
 piece_selectionnee = nil
 
+-- est-ce que le jeu est fini ?
+jeu_fini = false
+
 -- Load stuff at the beginning of the game
 function love.load()
     plateau = Plateau()
@@ -83,7 +86,9 @@ end
 
 -- Update the state of the game, every frame
 function love.update(delta_time)
-    -- plateau:update(delta_time)
+    -- si le jeu est fini, on ne fait plus d'interaction
+    if jeu_fini then return end
+
     if love.mouse.isDown(1) then
         piece_selectionnee = plateau.matrix[mouse_i][mouse_j]
         if piece_selectionnee.est_vide then

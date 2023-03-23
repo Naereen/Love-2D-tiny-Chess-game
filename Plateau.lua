@@ -102,6 +102,10 @@ function Plateau:deplace(i, j, new_i, new_j)
     local piece_arrivee = plateau.matrix[new_i][new_j]
     -- si piece_arrivee n'est pas vide, on peut faire 1) assert couleur différente 2) marquer un point au joueur actuel
     local couleur_piece_arrivee = piece_arrivee.est_blanc
+
+    -- est-ce que la pièce d'arrivée est un roi ?
+    local piece_arrivee_est_roi = piece_arrivee.est_roi
+
     -- mouvement classique, vers une case vide, rien à faire
     if couleur_piece_arrivee == nil then
         print("Mouvement classique,  vers une case vide, rien de spécial à faire")
@@ -119,6 +123,16 @@ function Plateau:deplace(i, j, new_i, new_j)
     -- on a vidé la case (i,j) c'est bon
     plateau.matrix[new_i][new_j] = plateau.matrix[i][j]
     plateau.matrix[i][j] = Vide(i, j)
+
+    -- si la pièce d'arrivée était un roi
+    if piece_arrivee_est_roi then
+        -- TODO: quitter joliment, avec un message à l'écran, j'ai la flemme
+        joueur_actif:message_a_gagne()
+        jeu_fini = true
+        -- on quitte dans 5 secondes
+        love.timer.sleep(5)
+        love.event.quit()
+    end
 
     -- réinitialise la pièce sélectionnée
     piece_selectionnee = nil

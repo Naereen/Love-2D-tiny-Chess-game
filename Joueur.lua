@@ -26,8 +26,16 @@ function Joueur:draw()
         joueur_est_actif = "* "
     end
     if self.est_blanc then
-        love.graphics.printf(joueur_est_actif .. "Blanc : " .. tostring(self.score) .. " pièces ♟ mangées ", self.X, self.Y, 750, 'left')
+        love.graphics.printf(joueur_est_actif .. "Joueur blanc : " .. tostring(self.score) .. " pièces ♟ mangées ", self.X, self.Y, 750, 'left')
     else
-        love.graphics.printf(joueur_est_actif .. " Noir : " .. tostring(self.score) .. " pièces ♙ mangées", self.X, self.Y, 750, 'left')
+        love.graphics.printf(joueur_est_actif .. " Joueur noir : " .. tostring(self.score) .. " pièces ♙ mangées", self.X, self.Y, 750, 'left')
+    end
+end
+
+function Joueur:message_a_gagne()
+    if self.est_blanc then
+        love.graphics.printf("Joueur blanc a gagné avec un score de " .. tostring(self.score) .. " pièces ♙ mangées", self.X, self.Y, 750, 'left')
+    else
+        love.graphics.printf("Joueur noir a gagné avec un score de " .. tostring(self.score) .. " pièces ♙ mangées", self.X, self.Y, 750, 'left')
     end
 end

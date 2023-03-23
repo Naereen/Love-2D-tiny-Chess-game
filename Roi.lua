@@ -11,6 +11,7 @@ function Roi:init(i, j, est_blanc)
     else
         self.emoji = '♚'
     end
+    self.est_roi = true
 end
 
 function abs(x)
