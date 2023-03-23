@@ -97,24 +97,26 @@ function Plateau:draw()
 end
 
 -- pour déplacer une pièce
-function deplace(i, j, new_i, new_j)
+function Plateau:deplace(i, j, new_i, new_j)
     local piece_arrivee = plateau.matrix[new_i][new_j]
     -- si piece_arrivee n'est pas vide, on peut faire 1) assert couleur différente 2) marquer un point au joueur actuel
     local couleur_piece_arrivee = piece_arrivee.est_blanc
+    -- mouvement classique, vers une case vide, rien à faire
     if couleur_piece_arrivee == nil then
-        -- mouvement classique, rien à faire
-        print("Mouvement classique, rien de spécial à faire")
+        print("Mouvement classique,  vers une case vide, rien de spécial à faire")
     else
         local couleur_piece_depart = plateau.matrix[i][j].est_blanc
         assert(couleur_piece_arrivee ~= couleur_piece_depart, "Erreur : pièce de départ en " .. i .. "," .. j .. "doit avoir une couleur différente de la case d'arrivée en " .. new_i .. "," .. new_j)
         return false
     end
-    -- si la case d'arrivée est pas vide, on doit marquer un point au joueur actuel
+    -- si la case d'arrivée n'est pas vide, on doit marquer un point au joueur actuel
     if couleur_piece_arrivee ~= nil then
         joueur_actif:marque_un_point()
     end
+    -- on délègue le déplacement à la méthode Piece:deplace(...)
     plateau.matrix[i][j]:deplace(new_i, new_j)
     -- on a vidé la case (i,j) c'est bon
+    plateau.matrix[new_i][new_j] = plateau.matrix[i][j]
     plateau.matrix[i][j] = Vide(i, j)
     return true
 end

@@ -34,8 +34,10 @@ end
 
 -- déplace le Piece actuel à cette nouvelle case
 function Piece:deplace(new_i, new_j)
-    -- TODO: il faut s'assurer de créer un Vide(i, j) dans le plateau
-    -- TODO: et de déplacer le Piece dans le plateau
+    assert(1 <= new_i and new_i <= 8)
+    assert(1 <= new_j and new_j <= 8)
+    -- DONE il faut s'assurer de créer un Vide(i, j) dans le plateau
+    -- DONE et de déplacer le Piece dans le plateau
     self.i = new_i
     self.j = new_j
 end

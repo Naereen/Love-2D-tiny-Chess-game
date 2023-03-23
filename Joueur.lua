@@ -21,9 +21,13 @@ end
 
 -- affiche le score du joueur, en haut pour le joueur noir et en bas pour le joueur blanc
 function Joueur:draw()
+    local joueur_est_actif = ""
+    if joueur_actif == self then
+        joueur_est_actif = "* "
+    end
     if self.est_blanc then
-        love.graphics.printf("Blanc : " .. tostring(self.score) .. " pièces ♟ mangées ", self.X, self.Y, 750, 'left')
+        love.graphics.printf(joueur_est_actif .. "Blanc : " .. tostring(self.score) .. " pièces ♟ mangées ", self.X, self.Y, 750, 'left')
     else
-        love.graphics.printf(" Noir : " .. tostring(self.score) .. " pièces ♙ mangées", self.X, self.Y, 750, 'left')
+        love.graphics.printf(joueur_est_actif .. " Noir : " .. tostring(self.score) .. " pièces ♙ mangées", self.X, self.Y, 750, 'left')
     end
 end

@@ -84,17 +84,20 @@ end
 -- Update the state of the game, every frame
 function love.update(delta_time)
     -- plateau:update(delta_time)
-    -- joueur_blanc:update(delta_time)
-    -- joueur_noir:update(delta_time)
     if love.mouse.isDown(1) then
         piece_selectionnee = plateau.matrix[mouse_i][mouse_j]
         if piece_selectionnee.est_vide then
             piece_selectionnee = nil
         end
-        -- TODO: colorier en rouge clair cette case de départ de déplacement
+        -- DONE colorier en vert clair cette case de départ de déplacement
     elseif love.mouse.isDown(2) then
-        -- un clic droit n'importe où annule la sélection
-        piece_selectionnee = nil
+        -- un clic droit sur une pièce d'arrivée fait le mouvement
+        local piece_arrivee = plateau.matrix[mouse_i][mouse_j]
+        local i, j = piece_selectionnee.i, piece_selectionnee.j
+        local new_i, new_j = piece_arrivee.i, piece_arrivee.j
+        if piece_selectionnee:mouvement_legal(new_i, new_j, piece_arrivee, plateau) then
+            Plateau:deplace(i, j, new_i, new_j)
+        end
     end
 end
 
