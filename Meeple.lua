@@ -9,9 +9,9 @@ function Meeple:init(i, j, est_blanc, est_vide)
     self.emoji = '?'
 end
 
--- TODO: move to Plateau:draw() ?
+-- Dessiner la pièce
 function Meeple:draw()
-    love.graphics.print(self.emoji, self.i * SCALE_FACTOR, self.j * SCALE_FACTOR, 0, SCALE_FACTOR, SCALE_FACTOR)
+    love.graphics.print(self.emoji, (self.i + 0.125) * SCALE_FACTOR, (self.j + 0.125) * SCALE_FACTOR, 0, 2, 2)
 end
 
 -- vérifie uniquement que l'on sort pas du plateau, et que l'on arrive pas sur une case ayant un Meeple de la même couleur

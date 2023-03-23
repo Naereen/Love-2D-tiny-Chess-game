@@ -43,13 +43,15 @@ mouse_j = 1
 -- quelle pièce est sélectionnée
 piece_selectionnee = nil
 
-
 -- Load stuff at the beginning of the game
 function love.load()
     plateau = Plateau()
     joueur_blanc = Joueur(true)
     joueur_noir  = Joueur(false)
     -- TODO: remplacer le joueur noir par un bridge API à APIStockFishChess
+
+    -- joueur actif, commence par le blanc puis alternera blanc > noir > blanc > noir etc.
+    joueur_actif = joueur_blanc
 
     -- set the title of our application window
     love.window.setTitle('Love 2D Chess - par Lilian Besson')

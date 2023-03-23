@@ -23,9 +23,9 @@ function Plateau:init()
     self.matrix[7][1] = Cavalier(7, 1, false)
     self.matrix[8][1] = Tour(8, 1, false)
 
-    -- une pièce au centre pour débogguer
-    self.matrix[4][4] = Pion(4, 4, false)
-    self.matrix[5][5] = Pion(5, 5, true)
+    -- TODO: enlever ces pièces au centre, mise là pour débogguer
+    self.matrix[4][4] = Reine(4, 4, false)
+    self.matrix[5][5] = Reine(5, 5, true)
 
     -- les pièces blanches
     self.matrix[1][8] = Tour(1, 8, true)
@@ -40,7 +40,7 @@ end
 
 -- pour dessiner le Plateau
 function Plateau:draw()
-    parite = 0
+    local parite = 0
     for i = 1,8 do
         parite = (parite + 1) % 2
         for j = 1,8 do
@@ -51,17 +51,17 @@ function Plateau:draw()
             parite = (parite + 1) % 2
             if i <= 8 and j <= 8 then
                 if parite == 0 then
-                    love.graphics.setColor(0.6, 0.6, 0.6, 1.0)
+                    love.graphics.setColor(0.6, 0.6, 0.6, 1.0)  -- gris foncé
                 else
-                    love.graphics.setColor(0.0, 0.0, 0.0, 1.0)
+                    love.graphics.setColor(0.0, 0.0, 0.0, 1.0)  -- noir
                 end
                 love.graphics.rectangle('fill', i*SCALE_FACTOR, j*SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR)
-                love.graphics.setColor(1.0, 1.0, 1.0, 1.0)
+                love.graphics.setColor(1.0, 1.0, 1.0, 1.0)  -- blanc pour les lignes
             end
 
-            meeple = self.matrix[i][j]
-            -- self.matrix[i][j]:draw()
-            love.graphics.print(meeple.emoji, (meeple.i + 0.125) * SCALE_FACTOR, (meeple.j + 0.125) * SCALE_FACTOR, 0, 2, 2)
+            local meeple = self.matrix[i][j]
+            meeple:draw()
+            -- love.graphics.print(meeple.emoji, (meeple.i + 0.125) * SCALE_FACTOR, (meeple.j + 0.125) * SCALE_FACTOR, 0, 2, 2)
 
         end
     end
@@ -96,4 +96,27 @@ function Plateau:draw()
             end
         end
     end
+end
+
+-- pour déplacer une pièce
+function deplace(i, j, new_i, new_j)
+    local piece_arrivee = plateau.matrix[new_i][new_j]
+    -- si piece_arrivee n'est pas vide, on peut faire 1) assert couleur différente 2) marquer un point au joueur actuel
+    local couleur_piece_arrivee = piece_arrivee.est_blanc
+    if couleur_piece_arrivee == nil then
+        -- mouvement classique, rien à faire
+        print("Mouvement classique, rien de spécial à faire")
+    else
+        local couleur_piece_depart = plateau.matrix[i][j].est_blanc
+        assert(couleur_piece_arrivee ~= couleur_piece_depart, "Erreur : pièce de départ en " .. i .. "," .. j .. "doit avoir une couleur différente de la case d'arrivée en " .. new_i .. "," .. new_j)
+        return false
+    end
+    -- si la case d'arrivée est pas vide, on doit marquer un point au joueur actuel
+    if couleur_piece_arrivee ~= nil then
+        joueur_actif:marque_un_point()
+    end
+    plateau.matrix[i][j]:deplace(new_i, new_j)
+    -- on a vidé la case (i,j) c'est bon
+    plateau.matrix[i][j] = Vide(i, j)
+    return true
 end
