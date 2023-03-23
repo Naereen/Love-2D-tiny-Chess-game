@@ -107,7 +107,6 @@ function Plateau:deplace(i, j, new_i, new_j)
     else
         local couleur_piece_depart = plateau.matrix[i][j].est_blanc
         assert(couleur_piece_arrivee ~= couleur_piece_depart, "Erreur : pièce de départ en " .. i .. "," .. j .. "doit avoir une couleur différente de la case d'arrivée en " .. new_i .. "," .. new_j)
-        return false
     end
     -- si la case d'arrivée n'est pas vide, on doit marquer un point au joueur actuel
     if couleur_piece_arrivee ~= nil then

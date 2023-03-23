@@ -22,6 +22,9 @@ function Pion:mouvement_legal(new_i, new_j, case_arrivee, plateau)
     if (self.i == new_i - 1 or self.i == new_i + 1) and case_arrivee.est_vide then
         return false
     end
+    if self.i == new_i and case_arrivee.est_vide == false then
+        return false
+    end
     if self.est_blanc then
         -- cas spécial du premier coup du pion
         if self.j == 7 and new_i == self.i and new_j == 5 then
