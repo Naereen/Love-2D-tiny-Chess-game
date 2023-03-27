@@ -1,6 +1,5 @@
 # Node modules, for love.js
 node_modules/
-www/
 
 # Compiled Love2D sources
 *.love
