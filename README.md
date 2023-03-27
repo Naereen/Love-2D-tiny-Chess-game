@@ -22,6 +22,7 @@ Ce mini projet m'a permis de progresser en Lua et en Löve2D, dans le cadre des 
 
 Et après, je veux essayer ça :
 
+- [ ] Faire une version web, avec [`love.js`](https://github.com/Davidobot/love.js), et publier la page web ici ;
 - [ ] Connecter le joueur noir à une API en ligne de commande d'un bon solveur d'échec (par exemple [stockfish](https://stockfishchess.org/) ?).
 
 ## Ce que je ne ferai pas (pas envie)

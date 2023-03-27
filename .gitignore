@@ -1,3 +1,11 @@
+# Node modules, for love.js
+node_modules/
+www/
+
+# Compiled Love2D sources
+*.love
+*.zip
+
 # Compiled Lua sources
 luac.out
 
@@ -41,3 +49,6 @@ luac.out
 
 # GNU Nano temporary backup files
 *~
+.*~
+*.swp
+.*.swp

@@ -108,7 +108,7 @@ function Plateau:deplace(i, j, new_i, new_j)
 
     -- mouvement classique, vers une case vide, rien à faire
     if couleur_piece_arrivee == nil then
-        print("Mouvement classique,  vers une case vide, rien de spécial à faire")
+        print("Mouvement classique, vers une case vide, rien de spécial à faire")
     else
         local couleur_piece_depart = plateau.matrix[i][j].est_blanc
         -- n'arrive jamais, on a bien vérifié ça avant
