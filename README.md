@@ -16,20 +16,22 @@ Ce mini projet m'a permis de progresser en Lua et en Löve2D, dans le cadre des 
 - [x] Alternance joueur blanc, joueur noir, etc. (machine à état basique) ;
 - [x] Jeu infini, jusqu'à ce qu'un Roi ait été pris ;
 - [x] l'interface graphique montre de façon très basique l'alternance des joueurs ;
+- [x] Faire une version web, avec [`love.js`](https://github.com/Davidobot/love.js), et [publier la page web ici](https://naereen.github.io/Love-2D-tiny-Chess-game/www/) ;
 - [ ] TODO: faire en sorte que le joueur actif ne puisse bouger que ses pièces ;
 
 ![Démonstration du plateau en cours de jeu](demo_plateau_en_cours.png)
 
 Et après, je veux essayer ça :
 
-- [ ] Faire une version web, avec [`love.js`](https://github.com/Davidobot/love.js), et publier la page web ici ;
 - [ ] Connecter le joueur noir à une API en ligne de commande d'un bon solveur d'échec (par exemple [stockfish](https://stockfishchess.org/) ?).
 
-## Ce que je ne ferai pas (pas envie)
+## Ce que je ne ferai pas tout seul (car j'ai pas envie)
 
-- [ ] Prise en passant ;
-- [ ] Les petit et grand roques ;
-- [ ] La promotion des pions ?
+Mais on peut essayer de le faire ensemble durant un des ateliers de programmation du mercredi après-midi !
+
+- [ ] [Prise en passant](https://fr.wikipedia.org/wiki/Prise_en_passant) ;
+- [ ] [Les petit et grand roques](https://fr.wikipedia.org/wiki/Roque_(%C3%A9checs)) ;
+- [ ] [La promotion des pions ?](https://fr.wikipedia.org/wiki/Promotion_(%C3%A9checs)) ;
 - [ ] Une intelligence artificielle faite maison ;
 
 ## License ?
