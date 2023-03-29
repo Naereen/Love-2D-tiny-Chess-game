@@ -19,10 +19,11 @@ require 'Fou'
 require 'Cavalier'
 require 'Roi'
 require 'Reine'
-require 'Plateau'            -- TODO:
+require 'Plateau'
 
-require 'Joueur'             -- TODO:
+require 'Joueur'
 
+require 'sunfish'  -- TODO:
 -- require 'APIStockFishChess'  -- TODO:
 
 -- size of our actual window
@@ -53,6 +54,15 @@ function love.load()
     joueur_noir  = Joueur(false)
     -- TODO: remplacer le joueur noir par un bridge API à APIStockFishChess
 
+    -- on initialise une sunfish.Position
+    pos_sunfish = Position.new(initial, 0, {true,true}, {true,true}, 0, 0)
+    printboard(pos_sunfish.board)
+
+    -- appliquer un mouvement à ce plateau ce fait avec
+    -- pos_sunfish = pos_sunfish:move(move_sunfish)
+    -- il faut ensuite afficher le plateau avec
+    -- printboard(pos_sunfish:rotate().board)
+
     -- joueur actif, commence par le blanc puis alternera blanc > noir > blanc > noir etc.
     joueur_actif = joueur_blanc
 
@@ -81,6 +91,14 @@ end
 function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
+    end
+    if key == 's' or key == 'h' then
+        -- fire up the engine to look for a move!
+        local move_sunfish, score_sunfish = search(pos_sunfish)
+        if move_sunfish ~= nil then
+            print("move, score = ", move_sunfish, score_sunfish)
+            print("My move = ", render(119-move_sunfish[1]) .. render(119-move_sunfish[2]))
+        end
     end
 end
 
