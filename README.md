@@ -18,12 +18,15 @@ Ce mini projet m'a permis de progresser en Lua et en Löve2D, dans le cadre des 
 - [x] l'interface graphique montre de façon très basique l'alternance des joueurs ;
 - [x] Faire une version web, avec [`love.js`](https://github.com/Davidobot/love.js), et [publier la page web ici](https://naereen.github.io/Love-2D-tiny-Chess-game/www/) ;
 - [ ] TODO: faire en sorte que le joueur actif ne puisse bouger que ses pièces ;
+- [ ] TODO: afficher les coordonnées sous forme A..H 1..8 sur les côtés du plateau ;
+- [ ] TODO: quitter joliment, avec un message à l'écran, mais pour l'instant j'ai eu la flemme (+ je sais pas trop comment faire ça proprement) ;
 
 ![Démonstration du plateau en cours de jeu](demo_plateau_en_cours.png)
 
 Et après, je veux essayer ça :
 
-- [ ] Connecter le joueur noir à une API en ligne de commande d'un bon solveur d'échec (par exemple [stockfish](https://stockfishchess.org/) ?).
+- [ ] Connecter le joueur noir à une API en ligne de commande d'un bon solveur d'échec, par exemple d'abord [sunfish.lua](https://github.com/soumith/sunfish.lua) puis le champion [stockfish](https://stockfishchess.org/).
+    * Pour commencer, on peut se contenter d'afficher à gauche du plateau une suggestion de coup à jouer, et laisser le joueur humain placer ce coup à la souris.
 
 ## Ce que je ne ferai pas tout seul (car j'ai pas envie)
 

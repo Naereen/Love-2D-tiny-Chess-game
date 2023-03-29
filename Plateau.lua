@@ -108,11 +108,12 @@ function Plateau:deplace(i, j, new_i, new_j)
 
     -- mouvement classique, vers une case vide, rien à faire
     if couleur_piece_arrivee == nil then
-        print("Mouvement classique, vers une case vide, rien de spécial à faire")
+        print(string.format("Mouvement classique (%d,%d) vers une case vide (%d,%d), rien de spécial à faire.", i, j, new_i, new_j))
     else
         local couleur_piece_depart = plateau.matrix[i][j].est_blanc
         -- n'arrive jamais, on a bien vérifié ça avant
         assert(couleur_piece_arrivee ~= couleur_piece_depart, "Erreur : pièce de départ en " .. i .. "," .. j .. "doit avoir une couleur différente de la case d'arrivée en " .. new_i .. "," .. new_j)
+        print(string.format("Mouvement offensif légal de (%d,%d) vers une case non vide (%d,%d), on a vérifié la couleur d'arrivée.", i, j, new_i, new_j))
     end
     -- si la case d'arrivée n'est pas vide, on doit marquer un point au joueur actuel
     if couleur_piece_arrivee ~= nil then

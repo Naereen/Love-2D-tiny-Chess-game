@@ -1,6 +1,9 @@
 # Node modules, for love.js
 node_modules/
 
+# Configuration for VSCode
+.vscode/
+
 # Compiled Love2D sources
 *.love
 *.zip
