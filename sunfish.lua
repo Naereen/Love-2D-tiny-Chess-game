@@ -17,7 +17,7 @@ local MATE_VALUE = 30000
 -- Our board is represented as a 120 character string. The padding allows for
 -- fast detection of moves that don't stay within the board.
 local A1, H1, A8, H8 = 91, 98, 21, 28
-initial =
+initial_sunfish =
     '         \n' .. --   0 -  9
     '         \n' .. --  10 - 19
     ' rnbqkbnr\n' .. --  20 - 29
@@ -436,7 +436,7 @@ local function bound(pos, gamma, depth)
     return best
 end
 
-function search(pos, maxn)
+function search_sunfish(pos, maxn)
    -- Iterative deepening MTD-bi search
    maxn = maxn or NODES_SEARCHED
    nodes = 0 -- the global value "nodes"
@@ -498,7 +498,7 @@ local function parse(c)
 end
 
 
-function render(i)
+function render_sunfish(i)
    local rank, fil = math.floor((i - A1) / 10), (i - A1) % 10
    return string.char(fil + string.byte('a')) .. tostring(-rank + 1)
 end
@@ -529,7 +529,7 @@ local strsplit = function(a)
    return out
 end
 
-function printboard(board)
+function printboard_sunfish(board)
    local l = strsplit(board, '\n')
    for k,v in ipairs(l) do
       for i=1,#v do
@@ -541,12 +541,12 @@ function printboard(board)
 end
 
 local function main()
-   local pos = Position.new(initial, 0, {true,true}, {true,true}, 0, 0)
+   local pos = Position.new(initial_sunfish, 0, {true,true}, {true,true}, 0, 0)
 
    while true do
       -- We add some spaces to the board before we print it.
       -- That makes it more readable and pleasing.
-      printboard(pos.board)
+      printboard_sunfish(pos.board)
 
       -- We query the user until she enters a legal move.
       local move = nil
@@ -565,10 +565,10 @@ local function main()
 
       -- After our move we rotate the board and print it again.
       -- This allows us to see the effect of our move.
-      printboard(pos:rotate().board)
+      printboard_sunfish(pos:rotate().board)
 
       -- Fire up the engine to look for a move.
-      local move, score = search(pos)
+      local move, score = search_sunfish(pos)
       -- print(move, score)
       assert(score)
       if score <= -MATE_VALUE then
@@ -584,7 +584,7 @@ local function main()
 
       -- The black player moves from a rotated position, so we have to
       -- 'back rotate' the move before printing it.
-      print("My move:", render(119-move[0 + __1]) .. render(119-move[1 + __1]))
+      print("My move:", render_sunfish(119-move[0 + __1]) .. render_sunfish(119-move[1 + __1]))
       pos = pos:move(move)
    end
 end

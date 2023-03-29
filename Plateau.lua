@@ -39,16 +39,18 @@ function Plateau:init()
 end
 
 -- table mappant A..H à 1..9
-lettres = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'}
+local lettres = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}
 
 -- pour dessiner le Plateau
 function Plateau:draw()
     local parite = 0
+    -- On affiche les chiffres 1..8 et les lettres a..h sur les côtés
+    -- https://en.wikipedia.org/wiki/Chess_symbols_in_Unicode#Chessboard_using_Unicode
     for j = 1,8 do
         love.graphics.print(tostring(9-j), 0.5*SCALE_FACTOR, (j + 0.25)*SCALE_FACTOR)
         love.graphics.print(tostring(9-j), 9.25*SCALE_FACTOR, (j + 0.25)*SCALE_FACTOR)
-        love.graphics.print(lettres[j], (j + 0.4)*SCALE_FACTOR, 0.65*SCALE_FACTOR, 0, 0.65, 0.65)
-        love.graphics.print(lettres[j], (j + 0.4)*SCALE_FACTOR, 9.1*SCALE_FACTOR, 0, 0.65, 0.65)
+        love.graphics.print(lettres[j], (j + 0.4)*SCALE_FACTOR, 0.65*SCALE_FACTOR, 0, 0.75, 0.75)
+        love.graphics.print(lettres[j], (j + 0.4)*SCALE_FACTOR, 9.1*SCALE_FACTOR, 0, 0.75, 0.75)
     end
     for i = 1,8 do
         parite = (parite + 1) % 2

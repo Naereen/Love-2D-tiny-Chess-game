@@ -55,8 +55,8 @@ function love.load()
     -- TODO: remplacer le joueur noir par un bridge API à APIStockFishChess
 
     -- on initialise une sunfish.Position
-    pos_sunfish = Position.new(initial, 0, {true,true}, {true,true}, 0, 0)
-    printboard(pos_sunfish.board)
+    pos_sunfish = Position.new(initial_sunfish, 0, {true,true}, {true,true}, 0, 0)
+    printboard_sunfish(pos_sunfish.board)
 
     -- appliquer un mouvement à ce plateau ce fait avec
     -- pos_sunfish = pos_sunfish:move(move_sunfish)
@@ -94,10 +94,10 @@ function love.keypressed(key)
     end
     if key == 's' or key == 'h' then
         -- fire up the engine to look for a move!
-        local move_sunfish, score_sunfish = search(pos_sunfish)
+        local move_sunfish, score_sunfish = search_sunfish(pos_sunfish)
         if move_sunfish ~= nil then
             print("move, score = ", move_sunfish, score_sunfish)
-            print("My move = ", render(119-move_sunfish[1]) .. render(119-move_sunfish[2]))
+            print("My move = ", render_sunfish(119-move_sunfish[1]) .. render_sunfish(119-move_sunfish[2]))
         end
     end
 end
