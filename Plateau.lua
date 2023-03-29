@@ -38,9 +38,16 @@ function Plateau:init()
     self.matrix[8][8] = Tour(8, 8, true)
 end
 
+-- table mappant A..H à 1..9
+lettres = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'}
+
 -- pour dessiner le Plateau
 function Plateau:draw()
     local parite = 0
+    for j = 1,8 do
+        love.graphics.print(tostring(9-j), 0.5*SCALE_FACTOR, (j + 0.25)*SCALE_FACTOR)
+        love.graphics.print(lettres[j], (j + 0.4)*SCALE_FACTOR, 0.65*SCALE_FACTOR, 0, 0.65, 0.65)
+    end
     for i = 1,8 do
         parite = (parite + 1) % 2
         for j = 1,8 do
