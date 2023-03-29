@@ -49,28 +49,32 @@ jeu_fini = false
 
 -- Load stuff at the beginning of the game
 function love.load()
-    plateau = Plateau()
-    joueur_blanc = Joueur(true)
-    joueur_noir  = Joueur(false)
-    -- TODO: remplacer le joueur noir par un bridge API à APIStockFishChess
-
-    -- on initialise une sunfish.Position
-    pos_sunfish = Position.new(initial_sunfish, 0, {true,true}, {true,true}, 0, 0)
-    printboard_sunfish(pos_sunfish.board)
-
-    -- appliquer un mouvement à ce plateau ce fait avec
-    -- pos_sunfish = pos_sunfish:move(move_sunfish)
-    -- il faut ensuite afficher le plateau avec
-    -- printboard(pos_sunfish:rotate().board)
-
-    -- joueur actif, commence par le blanc puis alternera blanc > noir > blanc > noir etc.
-    joueur_actif = joueur_blanc
 
     -- set the title of our application window
     love.window.setTitle('Love 2D Chess - par Lilian Besson')
 
     -- seed the RNG so that calls to random are always random
     math.randomseed(os.time())
+
+    -- Le plateau, joueurs blanc et noir
+    plateau = Plateau()
+    joueur_blanc = Joueur(true)
+    joueur_noir  = Joueur(false)
+    -- TODO: remplacer le joueur noir par un bridge API à APIStockFishChess
+
+    -- on initialise une PositionSunfish
+    -- TODO: mettre ça de façon cachée dans Plateau ?
+    position_sunfish = PositionSunfish.new(initial_sunfish, 0, {true, true}, {true, true}, 0, 0)
+    printboard_sunfish(position_sunfish.board)
+
+    -- Documentation :
+    -- appliquer un mouvement à ce plateau ce fait avec
+    -- position_sunfish = position_sunfish:move(move_sunfish)
+    -- il faut ensuite afficher le plateau avec
+    -- printboard(position_sunfish:rotate().board)
+
+    -- joueur actif, commence par le blanc puis alternera blanc > noir > blanc > noir etc.
+    joueur_actif = joueur_blanc
 
     -- initialize a text font with UTF8 emojis
     tinyFont = love.graphics.newFont("FreeSerif.ttf", 20)
@@ -93,11 +97,18 @@ function love.keypressed(key)
         love.event.quit()
     end
     if key == 's' or key == 'h' then
-        -- fire up the engine to look for a move!
-        local move_sunfish, score_sunfish = search_sunfish(pos_sunfish)
+        -- fire up the engine to look for a move for the current player!
+        if joueur_actif == joueur_blanc then
+            position_sunfish = position_sunfish:rotate()
+        end
+        local move_sunfish, score_sunfish = search_sunfish(position_sunfish)
         if move_sunfish ~= nil then
-            print("move, score = ", move_sunfish, score_sunfish)
+            -- print("move, score = ", move_sunfish, score_sunfish) -- DEBUG
             print("My move = ", render_sunfish(119-move_sunfish[1]) .. render_sunfish(119-move_sunfish[2]))
+            -- TODO: print this move to the screen game, not just the console
+        end
+        if joueur_actif == joueur_blanc then
+            position_sunfish = position_sunfish:rotate()
         end
     end
 end
@@ -123,6 +134,15 @@ function love.update(delta_time)
         local new_i, new_j = piece_arrivee.i, piece_arrivee.j
         if piece_selectionnee:mouvement_legal(new_i, new_j, piece_arrivee, plateau) then
             Plateau:deplace(i, j, new_i, new_j)
+            -- TODO: aussi faire ce déplacement sur position_sunfish
+            local lettres = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}
+            local crdn = string.format("%s%d%s%d", lettres[i], 9-j, lettres[new_i], 9-new_j)
+            print("crdn = ", crdn)  -- FIXME:
+            local move = {parse_sunfish(crdn:sub(1,2)), parse_sunfish(crdn:sub(3,4))}
+            print("move[1] =", move[1])
+            print("move[2] =", move[2])
+            position_sunfish = position_sunfish:move(move)
+            printboard_sunfish(position_sunfish:rotate().board)
         end
     end
 end

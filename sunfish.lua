@@ -3,7 +3,7 @@
 -- Code License: BSD
 -- From https://github.com/soumith/sunfish.lua
 
--- The table size is the maximum number of elements in the transposition table.
+-- The table size is the maximum number of elements in the transpositionSunfish table.
 local TABLE_SIZE = 1e6
 
 -- This constant controls how much time we spend on looking for optimal moves.
@@ -159,9 +159,9 @@ local function swapcase(s)
    return s2
 end
 
-Position = {}
+PositionSunfish = {}
 
-function Position.new(board, score, wc, bc, ep, kp)
+function PositionSunfish.new(board, score, wc, bc, ep, kp)
    --[[  A state of a chess game
       board -- a 120 char representation of the board
       score -- the board evaluation
@@ -177,11 +177,11 @@ function Position.new(board, score, wc, bc, ep, kp)
    self.bc = bc
    self.ep = ep
    self.kp = kp
-   for k,v in pairs(Position) do self[k] = v end
+   for k,v in pairs(PositionSunfish) do self[k] = v end
    return self
 end
 
-function Position:genMoves()
+function PositionSunfish:genMoves()
    local moves = {}
    -- For each of our pieces, iterate through each possible 'ray' of moves,
    -- as defined in the 'directions' map. The rays are broken e.g. by
@@ -230,13 +230,13 @@ function Position:genMoves()
 end
 
 
-function Position:rotate()
+function PositionSunfish:rotate()
    return self.new(
       swapcase(self.board:reverse()), -self.score,
       self.bc, self.wc, 119-self.ep, 119-self.kp)
 end
 
-function Position:move(move)
+function PositionSunfish:move(move)
    assert(move) -- move is zero-indexed
    local i, j = move[0 + __1], move[1 + __1]
    local p, q = self.board:sub(i + __1, i + __1), self.board:sub(j + __1, j + __1)
@@ -246,7 +246,9 @@ function Position:move(move)
    -- Copy variables and reset ep and kp
    local board = self.board
    local wc, bc, ep, kp = self.wc, self.bc, 0, 0
-   local score = self.score + self:value(move)
+   -- FIXME: this fails when using it for Love2DChess
+   -- local score = self.score + self:value(move)
+   local score = self.score
    -- Actual move
    board = put(board, j + __1, board:sub(i + __1, i + __1))
    board = put(board, i + __1, '.')
@@ -276,11 +278,11 @@ function Position:move(move)
 	 board = put(board, j+S + __1, '.')
       end
    end
-   -- We rotate the returned position, so it's ready for the next player
+   -- We rotate the returned positionSunfish, so it's ready for the next player
    return self.new(board, score, wc, bc, ep, kp):rotate()
 end
 
-function Position:value(move)
+function PositionSunfish:value(move)
    local i, j = move[0 + __1], move[1 + __1]
    local p, q = self.board:sub(i + __1, i + __1), self.board:sub(j + __1, j + __1)
    -- Actual move
@@ -352,88 +354,88 @@ local nodes = 0
 
 local function bound(pos, gamma, depth)
    --[[ returns s(pos) <= r < gamma    if s(pos) < gamma
-        returns s(pos) >= r >= gamma   if s(pos) >= gamma ]]--
-    nodes = nodes + 1
+   returns s(pos) >= r >= gamma   if s(pos) >= gamma ]]--
+   nodes = nodes + 1
 
-    -- Look in the table if we have already searched this position before.
-    -- We use the table value if it was done with at least as deep a search
-    -- as ours, and the gamma value is compatible.
-    local entry = tp_get(pos)
-    assert(depth)
-    if entry ~= nil and entry.depth >= depth and (
-            entry.score < entry.gamma and entry.score < gamma or
-            entry.score >= entry.gamma and entry.score >= gamma) then
-        return entry.score
-    end
+   -- Look in the table if we have already searched this positionSunfish before.
+   -- We use the table value if it was done with at least as deep a search
+   -- as ours, and the gamma value is compatible.
+   local entry = tp_get(pos)
+   assert(depth)
+   if entry ~= nil and entry.depth >= depth and (
+         entry.score < entry.gamma and entry.score < gamma or
+         entry.score >= entry.gamma and entry.score >= gamma) then
+      return entry.score
+   end
 
-    -- Stop searching if we have won/lost.
-    if math.abs(pos.score) >= MATE_VALUE then
-        return pos.score
-    end
+   -- Stop searching if we have won/lost.
+   if math.abs(pos.score) >= MATE_VALUE then
+      return pos.score
+   end
 
-    -- Null move. Is also used for stalemate checking
-    local nullscore = depth > 0 and -bound(pos:rotate(), 1-gamma, depth-3) or pos.score
-    --nullscore = -MATE_VALUE*3 if depth > 0 else pos.score
-    if nullscore >= gamma then
-        return nullscore
-    end
+   -- Null move. Is also used for stalemate checking
+   local nullscore = depth > 0 and -bound(pos:rotate(), 1-gamma, depth-3) or pos.score
+   --nullscore = -MATE_VALUE*3 if depth > 0 else pos.score
+   if nullscore >= gamma then
+      return nullscore
+   end
 
-    -- We generate all possible, pseudo legal moves and order them to provoke
-    -- cuts. At the next level of the tree we are going to minimize the score.
-    -- This can be shown equal to maximizing the negative score, with a slightly
-    -- adjusted gamma value.
-    local best, bmove = -3*MATE_VALUE, nil
-    local moves = pos:genMoves()
-    local function sorter(a, b)
-       local va = pos:value(a)
-       local vb = pos:value(b)
-       if va ~= vb then
-	  return va > vb
-       else
-	  if a[1] == b[1] then
-	     return a[2] > b[2]
-	  else
-	     return a[1] < b[1]
-	  end
-       end
-    end
-    table.sort(moves, sorter)
-    for _,move in ipairs(moves) do
-       -- We check captures with the value function, as it also contains ep and kp
-       if depth <= 0 and pos:value(move) < 150 then
-	  break
-       end
-       local score = -bound(pos:move(move), 1-gamma, depth-1)
-       -- print(move[1] .. ' ' ..  move[2] .. ' ' .. score)
-        if score > best then
-	   best = score
-	   bmove = move
-	end
-        if score >= gamma then
-	   break
-	end
-    end
+   -- We generate all possible, pseudo legal moves and order them to provoke
+   -- cuts. At the next level of the tree we are going to minimize the score.
+   -- This can be shown equal to maximizing the negative score, with a slightly
+   -- adjusted gamma value.
+   local best, bmove = -3*MATE_VALUE, nil
+   local moves = pos:genMoves()
+   local function sorter(a, b)
+      local va = pos:value(a)
+      local vb = pos:value(b)
+      if va ~= vb then
+   return va > vb
+      else
+   if a[1] == b[1] then
+      return a[2] > b[2]
+   else
+      return a[1] < b[1]
+   end
+      end
+   end
+   table.sort(moves, sorter)
+   for _,move in ipairs(moves) do
+      -- We check captures with the value function, as it also contains ep and kp
+      if depth <= 0 and pos:value(move) < 150 then
+   break
+      end
+      local score = -bound(pos:move(move), 1-gamma, depth-1)
+      -- print(move[1] .. ' ' ..  move[2] .. ' ' .. score)
+      if score > best then
+   best = score
+   bmove = move
+end
+      if score >= gamma then
+   break
+end
+   end
 
-    -- If there are no captures, or just not any good ones, stand pat
-    if depth <= 0 and best < nullscore then
-       return nullscore
-    end
-    -- Check for stalemate. If best move loses king, but not doing anything
-    -- would save us. Not at all a perfect check.
-    if depth > 0 and (best <= -MATE_VALUE) and nullscore > -MATE_VALUE then
-       best = 0
-    end
+   -- If there are no captures, or just not any good ones, stand pat
+   if depth <= 0 and best < nullscore then
+      return nullscore
+   end
+   -- Check for stalemate. If best move loses king, but not doing anything
+   -- would save us. Not at all a perfect check.
+   if depth > 0 and (best <= -MATE_VALUE) and nullscore > -MATE_VALUE then
+      best = 0
+   end
 
-    -- We save the found move together with the score, so we can retrieve it in
-    -- the play loop. We also trim the transposition table in FILO order.
-    -- We prefer fail-high moves, as they are the ones we can build our pv from.
-    if entry == nil or depth >= entry.depth and best >= gamma then
-       tp_set(pos, {depth = depth, score = best, gamma = gamma, move = bmove})
-       if tp_count > TABLE_SIZE then
-	  tp_popitem()
-       end
-    end
-    return best
+   -- We save the found move together with the score, so we can retrieve it in
+   -- the play loop. We also trim the transpositionSunfish table in FILO order.
+   -- We prefer fail-high moves, as they are the ones we can build our pv from.
+   if entry == nil or depth >= entry.depth and best >= gamma then
+      tp_set(pos, {depth = depth, score = best, gamma = gamma, move = bmove})
+      if tp_count > TABLE_SIZE then
+   tp_popitem()
+      end
+   end
+   return best
 end
 
 function search_sunfish(pos, maxn)
@@ -445,9 +447,9 @@ function search_sunfish(pos, maxn)
    -- We limit the depth to some constant, so we don't get a stack overflow in
    -- the end game.
    for depth=1,98 do
-      -- The inner loop is a binary search on the score of the position.
+      -- The inner loop is a binary search on the score of the positionSunfish.
       -- Inv: lower <= score <= upper
-      -- However this may be broken by values from the transposition table,
+      -- However this may be broken by values from the transpositionSunfish table,
       -- as they don't have the same concept of p(score). Hence we just use
       -- 'lower < upper - margin' as the loop condition.
       local lower, upper = -3*MATE_VALUE, 3*MATE_VALUE
@@ -475,7 +477,7 @@ function search_sunfish(pos, maxn)
    end
 
    -- If the game hasn't finished we can retrieve our move from the
-   -- transposition table.
+   -- transpositionSunfish table.
    local entry = tp_get(pos)
    if entry ~= nil then
       return entry.move, score
@@ -488,7 +490,7 @@ end
 -- User interface
 -------------------------------------------------------------------------------
 
-local function parse(c)
+function parse_sunfish(c)
    if not c then return nil end
    local p, v = c:sub(1,1), c:sub(2,2)
    if not (p and v and tonumber(v)) then return nil end
@@ -541,7 +543,7 @@ function printboard_sunfish(board)
 end
 
 local function main()
-   local pos = Position.new(initial_sunfish, 0, {true,true}, {true,true}, 0, 0)
+   local pos = PositionSunfish.new(initial_sunfish, 0, {true,true}, {true,true}, 0, 0)
 
    while true do
       -- We add some spaces to the board before we print it.
@@ -553,7 +555,7 @@ local function main()
       while true do
          print("Your move: ")
          local crdn = io.read()
-         move = {parse(crdn:sub(1,2)), parse(crdn:sub(3,4))}
+         move = {parse_sunfish(crdn:sub(1,3)), parse_sunfish(crdn:sub(3,4))}
          if move[1] and move[2] and ttfind(pos:genMoves(), move) then
             break
          else
@@ -561,6 +563,8 @@ local function main()
             print("Invalid input. Please enter a move in the proper format (e.g. g8f6)")
          end
       end
+      print("move[1] =", move[1])
+      print("move[2] =", move[2])
       pos = pos:move(move)
 
       -- After our move we rotate the board and print it again.
@@ -582,11 +586,17 @@ local function main()
 
       assert(move)
 
-      -- The black player moves from a rotated position, so we have to
+      -- The black player moves from a rotated positionSunfish, so we have to
       -- 'back rotate' the move before printing it.
       print("My move:", render_sunfish(119-move[0 + __1]) .. render_sunfish(119-move[1 + __1]))
       pos = pos:move(move)
    end
 end
 
--- main()
+-- DEBUG: décommenter ça si besoin d'accéder à la boucle de jeu sunfish
+if pcall(debug.getlocal, 4, 1) then
+   print("Importing sunfish as a package.")
+else
+   print("Importing sunfish as a script, launching main() :")
+   main()
+end 
