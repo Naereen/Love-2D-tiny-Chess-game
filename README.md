@@ -17,7 +17,7 @@ Ce mini projet m'a permis de progresser en Lua et en Löve2D, dans le cadre des 
 - [x] Jeu infini, jusqu'à ce qu'un Roi ait été pris ;
 - [x] l'interface graphique montre de façon très basique l'alternance des joueurs ;
 - [x] Faire une version web, avec [`love.js`](https://github.com/Davidobot/love.js), et [publier la page web ici](https://naereen.github.io/Love-2D-tiny-Chess-game/www/) ;
-- [x] Le plateau affiche les coordonnées sous forme A..H 1..8 sur les côtés du plateau ;
+- [x] Le plateau affiche les coordonnées sous forme A..H x 1..8 sur les côtés du plateau ;
 - [ ] TODO: faire en sorte que le joueur actif ne puisse bouger que ses pièces ;
 - [ ] TODO: quitter joliment, avec un message à l'écran, mais pour l'instant j'ai eu la flemme (+ je sais pas trop comment faire ça proprement) ;
 

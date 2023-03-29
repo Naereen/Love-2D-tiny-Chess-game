@@ -4,10 +4,10 @@ function Joueur:init(est_blanc)
     self.est_blanc = est_blanc
     if est_blanc then
         self.X = 250
-        self.Y = VIRTUAL_HEIGHT - 80
+        self.Y = VIRTUAL_HEIGHT - 50
     else
         self.X = 250
-        self.Y = 20
+        self.Y = 10
     end
 
     -- nombre de pièces adverses déjà mangées

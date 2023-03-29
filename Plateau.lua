@@ -46,7 +46,9 @@ function Plateau:draw()
     local parite = 0
     for j = 1,8 do
         love.graphics.print(tostring(9-j), 0.5*SCALE_FACTOR, (j + 0.25)*SCALE_FACTOR)
+        love.graphics.print(tostring(9-j), 9.25*SCALE_FACTOR, (j + 0.25)*SCALE_FACTOR)
         love.graphics.print(lettres[j], (j + 0.4)*SCALE_FACTOR, 0.65*SCALE_FACTOR, 0, 0.65, 0.65)
+        love.graphics.print(lettres[j], (j + 0.4)*SCALE_FACTOR, 9.1*SCALE_FACTOR, 0, 0.65, 0.65)
     end
     for i = 1,8 do
         parite = (parite + 1) % 2
