@@ -5,6 +5,7 @@ build_lovezip:
 build_lovejs:
 	# npx love.js [options] <input> <output>
 	npx love.js --compatibility --title "Love2D chess by Lilian Besson" --memory 17798533 ./Love2DChess.love www/
+	git restore www/index.html
 
 test_lovejs:
 	firefox http://localhost:8910/ &
