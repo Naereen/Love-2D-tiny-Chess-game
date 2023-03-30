@@ -137,12 +137,12 @@ function love.update(delta_time)
             -- TODO: aussi faire ce déplacement sur position_sunfish
             local lettres = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}
             local crdn = string.format("%s%d%s%d", lettres[i], 9-j, lettres[new_i], 9-new_j)
-            print("crdn = ", crdn)  -- FIXME:
+            -- print("crdn = ", crdn)  -- FIXME: remove this DEBUG line
             local move = {parse_sunfish(crdn:sub(1,2)), parse_sunfish(crdn:sub(3,4))}
-            print("move[1] =", move[1])
-            print("move[2] =", move[2])
+            -- print("move[1] =", move[1])  -- FIXME: remove this DEBUG line
+            -- print("move[2] =", move[2])  -- FIXME: remove this DEBUG line
             position_sunfish = position_sunfish:move(move)
-            printboard_sunfish(position_sunfish:rotate().board)
+            printboard_sunfish(position_sunfish.board)
         end
     end
 end

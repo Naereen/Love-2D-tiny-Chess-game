@@ -35,7 +35,9 @@ end
 function Joueur:message_a_gagne()
     if self.est_blanc then
         love.graphics.printf("Joueur blanc a gagné avec un score de " .. tostring(self.score) .. " pièces ♙ mangées", self.X, self.Y, 750, 'left')
+        print("Joueur blanc a gagné avec un score de " .. tostring(self.score) .. " pièces ♙ mangées")
     else
         love.graphics.printf("Joueur noir a gagné avec un score de " .. tostring(self.score) .. " pièces ♙ mangées", self.X, self.Y, 750, 'left')
+        print("Joueur noir a gagné avec un score de " .. tostring(self.score) .. " pièces ♙ mangées")
     end
 end
