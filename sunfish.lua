@@ -562,7 +562,8 @@ function search_sunfish(pos, maxn)
       end
       assert(score)
 
-      print(string.format("Searched %d nodes. Depth %d. Score %d(%d/%d)", nodes, depth, score, lower, upper))
+      -- DEBUG: enable this line to print debugging information
+      -- print(string.format("Searched %d nodes. Depth %d. Score %d(%d/%d)", nodes, depth, score, lower, upper))
 
       -- We stop deepening if the global N counter shows we have spent too
       -- long, or if we have already won the game.
@@ -627,7 +628,7 @@ local strsplit = function(a)
 end
 
 function printboard_sunfish(board)
-   local l = strsplit(board, '\n')
+   local l = strsplit(board)
    for k,v in ipairs(l) do
       for i=1,#v do
 	 io.write(v:sub(i,i))

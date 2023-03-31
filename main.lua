@@ -23,7 +23,7 @@ require 'Plateau'
 
 require 'Joueur'
 
-require 'sunfish'  -- TODO:
+require 'sunfish'
 -- require 'APIStockFishChess'  -- TODO:
 
 -- size of our actual window

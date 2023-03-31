@@ -1,6 +1,6 @@
 # Love-2D-tiny-Chess-game
 
-Un petit jeu d'échec écrit en Lua avec le framework Löve2D (https://love2d.org).
+Un petit jeu d'échec écrit en Lua avec le framework Löve2D (<https://love2d.org>).
 Ce mini projet m'a permis de progresser en Lua et en Löve2D, dans le cadre des ateliers de programmation que j'anime au printemps 2023 à la Ludothèque et au Fablab de Briançon (voir [cette page](https://github.com/aucoindujeu/codeclub)).
 
 ## Avancement du mini projet
@@ -32,7 +32,7 @@ Et après, je veux essayer ça :
 
 Mais on peut essayer de le faire ensemble durant un des ateliers de programmation du mercredi après-midi !
 
-- [ ] [Prise en passant](https://fr.wikipedia.org/wiki/Prise_en_passant) ;
+- [ ] [Prises en passant](https://fr.wikipedia.org/wiki/Prise_en_passant) ;
 - [ ] [Les petit et grand roques](https://fr.wikipedia.org/wiki/Roque_(%C3%A9checs)) ;
 - [ ] [La promotion des pions ?](https://fr.wikipedia.org/wiki/Promotion_(%C3%A9checs)) ;
 - [ ] Une intelligence artificielle faite maison ;
