@@ -14,7 +14,7 @@ function Roi:init(i, j, est_blanc)
     self.est_roi = true
 end
 
-function abs(x)
+local function abs(x)
     if x < 0 then return (-1 * x) else return x end
 end
 

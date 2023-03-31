@@ -14,21 +14,21 @@ function Fou:init(i, j, est_blanc)
 end
 
 -- Minimum de deux valeurs
-function min(a, b)
+local function min(a, b)
     if a < b then return a else return b end
 end
 
 -- Maximum de deux valeurs
-function max(a, b)
+local function max(a, b)
     if a < b then return b else return a end
 end
 
 -- Valeur absolue
-function abs(x)
+local function abs(x)
     if x < 0 then return (-1 * x) else return x end
 end
 
-function signe(x)
+local function signe(x)
     if x < 0 then return (-1) else return 1 end
 end
 

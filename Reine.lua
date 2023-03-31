@@ -18,7 +18,7 @@ function Reine:mouvement_legal(new_i, new_j, case_arrivee, plateau)
     if piece:mouvement_legal(new_i, new_j, case_arrivee, plateau) == false then -- si trivialement illégal
         return false -- mouvement illégal
     end
-    une_tour = Tour(self.i, self.j, self.est_blanc)
-    un_fou = Fou(self.i, self.j, self.est_blanc)
+    local une_tour = Tour(self.i, self.j, self.est_blanc)
+    local un_fou = Fou(self.i, self.j, self.est_blanc)
     return une_tour:mouvement_legal(new_i, new_j, case_arrivee, plateau) or un_fou:mouvement_legal(new_i, new_j, case_arrivee, plateau)
 end
