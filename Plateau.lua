@@ -138,12 +138,7 @@ function Plateau:deplace(i, j, new_i, new_j)
 
     -- si la pièce d'arrivée était un roi
     if piece_arrivee_est_roi then
-        -- TODO: quitter joliment, avec un message à l'écran, j'ai la flemme
-        joueur_actif:message_a_gagne()
         jeu_fini = true
-        -- on quitte dans 5 secondes
-        love.timer.sleep(5)
-        love.event.quit()
     end
 
     -- réinitialise la pièce sélectionnée

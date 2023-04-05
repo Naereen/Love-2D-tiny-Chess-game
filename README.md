@@ -32,9 +32,9 @@ Et après, je veux essayer ça :
 
 Mais on peut essayer de le faire ensemble durant un des ateliers de programmation du mercredi après-midi !
 
+- [ ] [La promotion des pions ?](https://fr.wikipedia.org/wiki/Promotion_(%C3%A9checs)) ;
 - [ ] [Prises en passant](https://fr.wikipedia.org/wiki/Prise_en_passant) ;
 - [ ] [Les petit et grand roques](https://fr.wikipedia.org/wiki/Roque_(%C3%A9checs)) ;
-- [ ] [La promotion des pions ?](https://fr.wikipedia.org/wiki/Promotion_(%C3%A9checs)) ;
 - [ ] Une intelligence artificielle faite maison ;
 
 ## License ?

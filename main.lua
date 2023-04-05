@@ -113,8 +113,6 @@ end
 
 -- Update the state of the game, every frame
 function love.update(delta_time)
-    -- si le jeu est fini, on ne fait plus d'interaction
-    if jeu_fini then return end
 
     if love.mouse.isDown(1) then
         piece_selectionnee = plateau.matrix[mouse_i][mouse_j]
@@ -156,8 +154,17 @@ function love.draw()
     plateau:draw()
 
     -- afficher le score des deux joueurs
-    joueur_blanc:draw()
-    joueur_noir:draw()
+    if not jeu_fini then
+        joueur_blanc:draw()
+        joueur_noir:draw()
+    -- si le jeu est fini, on ne fait plus d'interaction
+    else
+        -- TODO: quitter joliment, avec un message à l'écran, j'ai la flemme
+        joueur_actif:message_a_gagne()
+        -- on quitte dans 5 secondes
+        love.timer.sleep(5)
+        love.event.quit()
+    end
 
     -- display FPS for debugging; simply comment out to remove
     displayFPS()
