@@ -3,6 +3,8 @@
 Un petit jeu d'échec écrit en Lua avec le framework Löve2D (<https://love2d.org>).
 Ce mini projet m'a permis de progresser en Lua et en Löve2D, dans le cadre des ateliers de programmation que j'anime au printemps 2023 à la Ludothèque et au Fablab de Briançon (voir [cette page](https://github.com/aucoindujeu/codeclub)).
 
+=> Jouez ici : <https://naereen.github.io/Love-2D-tiny-Chess-game/www/> en dézoomant pour voir tout l'échiquier. Ce jeu ne marche pas encore sur mobile, il faut utiliser une souris avec clic gauche et droit.
+
 ## Avancement du mini projet
 
 - [x] Première architecture avec des classes pour les pièces ;
